@@ -1,0 +1,110 @@
+
+.container {
+    display: flex;
+    width: 300px;
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+    background-color: #162844;
+    padding: 25px;
+    border-radius: 10px;
+}
+
+.inputCity {
+    background-color: #323334;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: aliceblue;
+    padding: 7px;
+    transition:
+        border 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.inputCity:hover {
+    border-color: rgb(111,111,111);
+}
+
+.inputCity:focus {
+    outline: none;
+    border-color: rgb(68, 68, 148);
+    box-shadow: 0 0 0 2px rgba(139, 139, 248, 0.579);
+}
+
+
+.WeatherIcone {
+    font-size: 30px;
+}
+
+.WeatherTemp {
+    color: snow;
+    font-family: monospace; font-size: 40px;
+}
+
+.ContainerCity {
+    display: flex;
+    flex-direction: column;
+    font-family: monospace;
+}
+
+.TitleCity {
+    color: snow;
+    font-size: 20px;
+}
+
+.ParametrCity {
+    color: #4d5f7b;
+}
+
+.ContainerParameters * {
+    margin: 0;
+}
+
+.ContainerParameters {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    background-color: rgba(255, 250, 250, 0.238);
+    border-radius: 10px;
+    width: 70px;
+    padding: 10px;
+    
+}
+
+.card h5 {
+    color: #2f3b4d;
+    font-size: 10px;
+}
+
+.card span {
+    color: snow;
+}
+
+.red:focus {
+    box-shadow: 0 0 0 2px rgba(248, 139, 139, 0.579);
+}
+
+
+.WeatherIcone,
+.WeatherTemp,
+.TitleCity,
+.ParametrCity,
+.card span {
+    animation: scaleIn 0.5s ease;
+}
+
+@keyframes scaleIn {
+    from {transform: translateY(-10px); opacity: 0;}
+    to {transform: translateY(0px); opacity: 1;}
+}
+
+
+
