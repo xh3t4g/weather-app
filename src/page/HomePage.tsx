@@ -9,7 +9,7 @@ export function HomePage() {
 
     const [city, setCity] = useState("Москва");
     const [weather, setWeather] = useState<Weather | null>(null);
-    const [_isInvalid, setIsInvalid] = useState(false);
+    const [isInvalid, setIsInvalid] = useState(false);
     const [videoSrc, setVideoSrc] = useState(viduo_fn(Videoelements, 'Default'));
     const inputRef = useRef<HTMLInputElement>(null);
     const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
@@ -26,7 +26,7 @@ export function HomePage() {
             setIsInvalid(false);
             setWeather(data)
 
-            switch (data.weather[0].name) {
+            switch (data.weather[0].main) {
                 case 'Rain':
                     setVideoSrc(viduo_fn(Videoelements, "Rain"))
                     break;
@@ -50,6 +50,18 @@ export function HomePage() {
 
     }, [city])
 
+    useEffect(() => {
+        const handleKeyDown = () => {
+            inputRef.current?.focus();
+        }
+
+        window.addEventListener('keydown', handleKeyDown);
+
+        return () => window.removeEventListener('keydown', handleKeyDown)
+    }, [])
+
+
+
     return <>
 
     <video key={videoSrc} autoPlay muted loop>
@@ -59,7 +71,7 @@ export function HomePage() {
         <div className={css["container"]} key={weather?.name}>
             <form className="form" onSubmit={(e) => {
                 e.preventDefault();
-                const value = e.target.value.trim();
+                const value = e.target.inputCity.value.trim();
                 if (value) {
                     setIsInvalid(false)
                     setCity(value)
@@ -68,7 +80,7 @@ export function HomePage() {
                     }
                 }
             }}>
-                <input type="text" name="inputCity" className={css["inputCity"]} placeholder="Введите город..." />
+                <input ref={inputRef} type="text" name="inputCity" className={`${css["inputCity"]} ${isInvalid ? css['red'] : ''}`} placeholder="Введите город..." enterKeyHint="search" />
             </form>
             {weather && <>
                 <span className={css["WeatherIcone"]}>
@@ -92,17 +104,17 @@ export function HomePage() {
                 <div className={css["ContainerParameters"]}>
                     <div className={css["card"]}>
                         <h5>Ощущается</h5>
-                        <span>{Math.floor(weather.main.feels_like)}</span>
+                        <span>{Math.floor(weather.main.feels_like)}°</span>
                     </div>
 
                     <div className={css["card"]}>
                         <h5>Влажность</h5>
-                        <span>{weather.main.humidity}</span>
+                        <span>{weather.main.humidity} %</span>
                     </div>
 
                     <div className={css["card"]}>
                         <h5>Ветер</h5>
-                        <span>{Math.round(weather.wind.speed)}</span>
+                        <span>{Math.round(weather.wind.speed)} м/с</span>
                     </div>
                 </div>
                     
